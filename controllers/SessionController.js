@@ -6,7 +6,13 @@ module.exports = {
 
         const { email } = req.body;
 
-        const user = await User.create( { email });
+        let user = await User.findOne( { email: email } );
+
+        if( !user ){
+
+            user = await User.create( { email });
+
+        }
 
         return res.json(user);
         
